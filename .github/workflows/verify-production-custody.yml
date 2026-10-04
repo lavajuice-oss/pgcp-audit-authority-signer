@@ -59,8 +59,37 @@ jobs:
               if any(token in raw for token in forbidden):
                   raise ValueError('forbidden content marker')
               data = json.loads(raw)
-              if data.get('result') != 'PASS' or data.get('public_key_match') is not True:
-                  raise ValueError('identity match did not PASS')
+
+              expected_public_key = "pL/WL+tAdGVTINzs3J6uCr9btmHYK1Y9gDNhzpJbGlo="
+              expected_fingerprint = "f067fd5610f32b4fb7b2aee9efd662ee309d5a87007497a2051204fed06b18a0"
+
+              required_values = {
+                  "artifact_type": "PGCP_AA_CUSTODY_VERIFICATION_RESULT",
+                  "version": "v0.1",
+                  "result": "PASS",
+                  "command_id": "VERIFY_PRODUCTION_CUSTODY",
+                  "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+                  "trust_root_binding": "V1_36_EXACT",
+                  "expected_public_key_b64": expected_public_key,
+                  "derived_public_key_b64": expected_public_key,
+                  "public_key_fingerprint_sha256": expected_fingerprint,
+                  "public_key_match": True,
+                  "private_key_exported": False,
+                  "private_key_material_in_output": False,
+                  "repository_source_control_secret": False,
+                  "next_gate": "PKE_ELIGIBILITY_RECONCILIATION",
+              }
+              
+              missing = [k for k in required_values if k not in data]
+              if missing:
+                  raise ValueError(f"missing required custody fields: {missing}")
+
+              for key, expected in required_values.items():
+                  if data.get(key) != expected:
+                      raise ValueError(f"custody validation failed: {key}")
+
+              if data.get("derived_public_key_b64") != data.get("expected_public_key_b64"):
+                  raise ValueError("derived public key does not equal expected public key")
               allowed = {
                   'artifact_type', 'version', 'result', 'command_id', 'key_strategy',
                   'trust_root_binding', 'expected_public_key_b64', 'derived_public_key_b64',
