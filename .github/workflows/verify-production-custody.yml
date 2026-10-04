@@ -85,7 +85,12 @@ jobs:
                   raise ValueError(f"missing required custody fields: {missing}")
 
               for key, expected in required_values.items():
-                  if data.get(key) != expected:
+                  actual = data.get(key)
+
+                  if isinstance(expected, bool):
+                      if type(actual) is not bool or actual is not expected:
+                          raise ValueError(f"custody validation failed: {key}")
+                  elif type(actual) is not type(expected) or actual != expected:
                       raise ValueError(f"custody validation failed: {key}")
 
               if data.get("derived_public_key_b64") != data.get("expected_public_key_b64"):
