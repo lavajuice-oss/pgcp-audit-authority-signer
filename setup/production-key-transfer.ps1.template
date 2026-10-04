@@ -1,0 +1,20 @@
+# TEMPLATE ONLY. Do not commit a populated copy.
+# Run on the machine legitimately holding the historical audit_private.pem.
+param(
+  [Parameter(Mandatory=$true)][string]$Repo,
+  [Parameter(Mandatory=$true)][string]$FixturePath
+)
+
+$ErrorActionPreference = 'Stop'
+
+if (-not (Get-Command gh -ErrorAction SilentlyContinue)) { throw 'GitHub CLI (gh) is required' }
+
+# The key is read only to create the protected GitHub secret value.
+# It is never written to a repository file or printed.
+$b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($FixturePath))
+try {
+  $b64 | gh secret set AUDIT_AUTHORITY_KEY_PEM_B64 --env production --repo $Repo
+}
+finally {
+  Remove-Variable b64 -ErrorAction SilentlyContinue
+}

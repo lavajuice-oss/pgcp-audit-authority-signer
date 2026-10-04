@@ -1,0 +1,35 @@
+{
+  "artifact_type": "PGCP_AA_GITHUB_FREE_OPTIONA_LOCAL_SHADOW_QUALIFICATION",
+  "version": "v0.1",
+  "status": "PASS_LOCAL_ONLY",
+  "scope": "construct_and_test_public_shadow_signer_before_production_secret_introduction",
+  "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+  "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
+  "github_target": "FREE_PUBLIC_REPOSITORY_PROTECTED_PRODUCTION_ENVIRONMENT",
+  "v1_36_public_key_b64": "pL/WL+tAdGVTINzs3J6uCr9btmHYK1Y9gDNhzpJbGlo=",
+  "v1_36_artifact_archive_sha256": "7bb4fb8775b195967fa9e03b39e6d78996bbe6595ca676edbb3e09c8c0a15345",
+  "v1_36_root_manifest_sha256": "2cb7a92dcdab4aa97b40049543f34fcd3ed6cdc3b0326e03cd699bad4e4d41c5",
+  "v1_36_root_anchor_sha256": "5f28b2a5770434f8afce98581b31c3ffe3a2e188b64fd1751bba5bfe7b4108e9",
+  "frozen_matrix_sha256": "b8bb6e2e0562e9db7bbbc1fd42e1eb8eab8aac66be8fa677c203483a82d61930",
+  "tests": {
+    "pytest": "4 passed",
+    "secret_scan": "PASS",
+    "wrong_key_fail_closed": "PASS"
+  },
+  "files": {
+    "src/signer.py": "7b683e8cc0b52226b2e3c97bc1fb7f2f8654b5b13233821a3f8e358162875396",
+    ".github/workflows/shadow.yml": "54bbab6565e4b642961b57007425c8e2b21e0b00a535f91a66038367ae49bb69",
+    ".github/workflows/verify-production-custody.yml": "21f7916f4543bfa800aa989160927d9649a1bd0544641087e6b953bd4e9f9dcc",
+    "config/v1.36-authorized-subject.json": "2575b80121ab76abd22a1ade5ad0e12e263655f31d0b72f72aba12dd90bc311a",
+    "policy/custody-policy.json": "892ed3c3b3b62b07b3bb18c8a11b6943ec3f0cb22d60374c9c863d70a4f2f733",
+    "policy/signer-policy.json": "c0fcfb8464f97032f39342a756ea7f2ae38702c5eb6b113aef6684c71aba8c08"
+  },
+  "production_key_present_locally": false,
+  "github_repository_created_by_this_run": false,
+  "github_environment_configured_by_this_run": false,
+  "production_eligibility": "NOT_CLOSED",
+  "real_production_signature": false,
+  "v1_36_modified": false,
+  "matrix_modified": false,
+  "next_gate": "Create public GitHub repository, upload reviewed bundle, configure shadow and production environments/protections, run GitHub shadow workflow, then add exact historical key to production environment secret."
+}

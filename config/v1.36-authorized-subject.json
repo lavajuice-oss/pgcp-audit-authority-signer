@@ -1,0 +1,28 @@
+{
+  "artifact_type": "PGCP_AA_V1_36_AUTHORIZED_SUBJECT",
+  "version": "v0.1",
+  "trust_root_binding": "V1_36_EXACT",
+  "audit_authority": {
+    "algorithm": "Ed25519",
+    "public_key_b64": "pL/WL+tAdGVTINzs3J6uCr9btmHYK1Y9gDNhzpJbGlo="
+  },
+  "subject": {
+    "package_id": "PGCP-SUCCESSOR-PACKAGE-0004",
+    "package_version": "v1.36",
+    "archive_sha256": "7bb4fb8775b195967fa9e03b39e6d78996bbe6595ca676edbb3e09c8c0a15345",
+    "root_manifest_sha256": "2cb7a92dcdab4aa97b40049543f34fcd3ed6cdc3b0326e03cd699bad4e4d41c5",
+    "root_anchor_sha256": "5f28b2a5770434f8afce98581b31c3ffe3a2e188b64fd1751bba5bfe7b4108e9",
+    "proposal_id": "PGCP-SUCCESSOR-PROPOSAL-PAIOS-0005",
+    "proposal_raw_sha256": "2dffc1ee1ebc949bb4987bf0aaf200111d2e8a95ad86893de1a69495f2a2a4e0",
+    "predecessor_pointer_raw_sha256": "7ff5a902d4b8eca5faaeb12b9d42d1aa0b0db28cd97c8755c04c9bbb06485056",
+    "audit_id": "PGCP-FRESH-NARROW-ADVERSARIAL-LINEAGE-AUDIT",
+    "audit_version": "v0.2",
+    "audit_raw_sha256": "157a83e308dae5f71b1bd2937c2187525ba9275454afc1d46c27aca2eadaa2b5",
+    "audit_disposition": "CLEAN",
+    "validity_max_age_seconds": 604800
+  },
+  "governance_state": {
+    "current_state": "0003 CURRENT / IMMUTABLE",
+    "successor_state": "0004 v1.36 PROPOSED_NOT_CURRENT"
+  }
+}

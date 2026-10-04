@@ -1,0 +1,23 @@
+{
+  "artifact_type": "PGCP_AA_CUSTODY_POLICY",
+  "version": "v0.1",
+  "strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+  "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
+  "preferred_vessel": "GITHUB_FREE_PUBLIC_REPOSITORY_PROTECTED_PRODUCTION_ENVIRONMENT",
+  "repository_class": "PUBLIC",
+  "production_environment": "production",
+  "shadow_environment": "shadow",
+  "secret_name": "AUDIT_AUTHORITY_KEY_PEM_B64",
+  "secret_location": "GITHUB_ENVIRONMENT_SECRET_ONLY",
+  "repository_secret": false,
+  "source_control_secret": false,
+  "runner_model": "GITHUB_HOSTED_EPHEMERAL",
+  "private_key_persistence": "ENVIRONMENT_SECRET_ONLY",
+  "private_key_export": "FORBIDDEN",
+  "workflow_artifacts_containing_secret": "FORBIDDEN",
+  "logs_containing_secret": "FORBIDDEN",
+  "pull_request_secret_access": "FORBIDDEN",
+  "production_signing_until_eligibility": "BLOCKED",
+  "trust_root_rotation": false,
+  "v1_36_rebuild": false
+}

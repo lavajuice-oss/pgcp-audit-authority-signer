@@ -1,0 +1,103 @@
+{
+  "artifact_type": "PGCP_AA_GITHUB_FREE_OPTIONA_REPO_MANIFEST",
+  "version": "v0.1",
+  "status": "LOCAL_SHADOW_CONSTRUCTED_TESTED_BUNDLE_CLEANED",
+  "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+  "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
+  "github_plan": "FREE",
+  "repository_class": "PUBLIC",
+  "v1_36_public_key_b64": "pL/WL+tAdGVTINzs3J6uCr9btmHYK1Y9gDNhzpJbGlo=",
+  "frozen_campaign_matrix_sha256": "b8bb6e2e0562e9db7bbbc1fd42e1eb8eab8aac66be8fa677c203483a82d61930",
+  "files": [
+    {
+      "path": ".github/workflows/shadow.yml",
+      "sha256": "54bbab6565e4b642961b57007425c8e2b21e0b00a535f91a66038367ae49bb69",
+      "size_bytes": 844
+    },
+    {
+      "path": ".github/workflows/verify-production-custody.yml",
+      "sha256": "21f7916f4543bfa800aa989160927d9649a1bd0544641087e6b953bd4e9f9dcc",
+      "size_bytes": 1909
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "c56dad59877a92b1c822a43ee37351e50cea52f79e5f1e8254b1728d7ff0cee6",
+      "size_bytes": 128
+    },
+    {
+      "path": "README.md",
+      "sha256": "8d7748f190e46539a00a29a60cce9b07f26552859ac4b0718c7bfacbf47c836d",
+      "size_bytes": 2372
+    },
+    {
+      "path": "SECURITY.md",
+      "sha256": "5a708b046760ff7178a5f7091f50af3f5be2b390a8eb3cce909ca5f71c3638e6",
+      "size_bytes": 705
+    },
+    {
+      "path": "config/v1.36-authorized-subject.json",
+      "sha256": "2575b80121ab76abd22a1ade5ad0e12e263655f31d0b72f72aba12dd90bc311a",
+      "size_bytes": 1274
+    },
+    {
+      "path": "docs/CURRENT-BOUNDARY.md",
+      "sha256": "a2a8b3ef0caf011b473ddb1be5d6630e422bf6c8e3a22bc7af16021712fc29bc",
+      "size_bytes": 800
+    },
+    {
+      "path": "docs/SETUP-GITHUB-FREE.md",
+      "sha256": "15efc6112ae82b790927e557b842960bfeb21fc5b24fc6787d22a1b887041612",
+      "size_bytes": 3672
+    },
+    {
+      "path": "docs/UPLOAD-TO-GITHUB-WINDOWS.md",
+      "sha256": "e9cbf5114aa2d602e6b5f2f279518c5a0942cc3bf8c666629be9b0fd0dc0596a",
+      "size_bytes": 3102
+    },
+    {
+      "path": "policy/custody-policy.json",
+      "sha256": "892ed3c3b3b62b07b3bb18c8a11b6943ec3f0cb22d60374c9c863d70a4f2f733",
+      "size_bytes": 928
+    },
+    {
+      "path": "policy/signer-policy.json",
+      "sha256": "c0fcfb8464f97032f39342a756ea7f2ae38702c5eb6b113aef6684c71aba8c08",
+      "size_bytes": 940
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "ebc319f05921f7d8d196fb93e7e47ffabc2cdda3dbd7e261d76a8fbc5ea099c8",
+      "size_bytes": 34
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "ba5dd4592ae2d0d83245ce3e3ef8be50cd4bf93fc2fb9577caf7219d2ac3800d",
+      "size_bytes": 21
+    },
+    {
+      "path": "setup/bootstrap.ps1",
+      "sha256": "f2b6f2719a1f643c5fd81a9bdd0604f9106d08520a0b29edab21d28f42834521",
+      "size_bytes": 854
+    },
+    {
+      "path": "setup/check-public-safe.sh",
+      "sha256": "18915184b86c07601e74b9936ea9d508ff031e69c13cf1eb5552d02d5654e9d7",
+      "size_bytes": 444
+    },
+    {
+      "path": "setup/production-key-transfer.ps1.template",
+      "sha256": "66cb57cb16d5343f9b4e057deac169bd7a8bcfceef1b9455e334c2b835745d2a",
+      "size_bytes": 710
+    },
+    {
+      "path": "src/signer.py",
+      "sha256": "7b683e8cc0b52226b2e3c97bc1fb7f2f8654b5b13233821a3f8e358162875396",
+      "size_bytes": 7280
+    },
+    {
+      "path": "tests/test_signer.py",
+      "sha256": "c5dfa4bb25f10ac2f1dd535c58c4abe5d2acf4febd89f117ab47c8913ff964aa",
+      "size_bytes": 2803
+    }
+  ]
+}

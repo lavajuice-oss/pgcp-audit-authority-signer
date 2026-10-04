@@ -1,0 +1,22 @@
+{
+  "artifact_type": "PGCP_AA_SIGNER_POLICY",
+  "version": "v0.1",
+  "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+  "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
+  "allowed_operations": ["verify-custody", "issue-audit-disposition"],
+  "forbidden_operations": ["sign-arbitrary-bytes", "change-trust-root", "mutate-pgcp-state", "accept-successor", "promote-successor"],
+  "allowed_subject_package_id": "PGCP-SUCCESSOR-PACKAGE-0004",
+  "allowed_subject_package_version": "v1.36",
+  "allowed_disposition": "CLEAN",
+  "trust_root_binding": "V1_36_EXACT",
+  "canonicalization": "JCS-LIKE-JSON-SORT-KEYS-COMPACT-UTF8",
+  "private_key_output": "FORBIDDEN",
+  "generic_signing_oracle": false,
+  "production_signing_requires": [
+    "PRODUCTION_ELIGIBLE_CURRENT_RECORD",
+    "AUTHORITATIVE_PGCP_SIGNING_AUTHORIZATION_SNAPSHOT",
+    "EXACT_V1_36_SUBJECT",
+    "CANONICAL_REQUEST"
+  ],
+  "production_signing_enabled_by_default": false
+}
