@@ -1,7 +1,7 @@
 {
   "artifact_type": "PGCP_AA_GITHUB_FREE_OPTIONA_REPO_MANIFEST",
-  "version": "v0.2",
-  "status": "HARDENING_PATCH_PREPARED_NOT_APPLIED",
+  "version": "v0.3",
+  "status": "HARDENING_PATCH_APPLIED_ON_BRANCH_NOT_MERGED",
   "inventory_scope": "All public tracked repository files except this manifest and SHA256SUMS; SHA256SUMS covers this manifest and every other file except itself.",
   "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
   "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
