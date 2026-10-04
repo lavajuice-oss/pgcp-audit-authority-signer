@@ -1,0 +1,113 @@
+name: Verify Production Custody
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-custody:
+    # Fail closed: only a manually dispatched workflow on main may reach production.
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Fetch exact triggering commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p repo
+          git -C repo init -q
+          git -C repo remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git -C repo fetch --depth 1 origin "$GITHUB_SHA"
+          git -C repo checkout --detach FETCH_HEAD
+      - name: Create isolated Python environment
+        run: |
+          python3 -m venv .venv
+          .venv/bin/python -m pip install --disable-pip-version-check --no-cache-dir -r repo/requirements.txt
+      - name: Verify custody and emit allow-listed public evidence
+        shell: bash
+        env:
+          AUDIT_AUTHORITY_KEY_PEM_B64: ${{ secrets.AUDIT_AUTHORITY_KEY_PEM_B64 }}
+        run: |
+          set -uo pipefail
+          result_file="$RUNNER_TEMP/pgcp-custody-result.json"
+          set +e
+          .venv/bin/python repo/src/signer.py verify-custody > "$result_file"
+          signer_status=$?
+          unset AUDIT_AUTHORITY_KEY_PEM_B64
+          set -e
+          if [ "$signer_status" -ne 0 ] || [ ! -s "$result_file" ]; then
+            rm -f "$result_file"
+            echo 'CUSTODY_VERIFICATION=BLOCKED'
+            echo 'PUBLIC_EVIDENCE_EMITTED=NO'
+            exit 1
+          fi
+          .venv/bin/python - "$result_file" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+          path = Path(sys.argv[1])
+          try:
+              raw = path.read_text(encoding='utf-8')
+              forbidden = ('BEGIN PRIVATE KEY', 'PRIVATE KEY', 'AUDIT_AUTHORITY_KEY_PEM_B64')
+              if any(token in raw for token in forbidden):
+                  raise ValueError('forbidden content marker')
+              data = json.loads(raw)
+
+              expected_public_key = "pL/WL+tAdGVTINzs3J6uCr9btmHYK1Y9gDNhzpJbGlo="
+              expected_fingerprint = "f067fd5610f32b4fb7b2aee9efd662ee309d5a87007497a2051204fed06b18a0"
+
+              required_values = {
+                  "artifact_type": "PGCP_AA_CUSTODY_VERIFICATION_RESULT",
+                  "version": "v0.1",
+                  "result": "PASS",
+                  "command_id": "VERIFY_PRODUCTION_CUSTODY",
+                  "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
+                  "trust_root_binding": "V1_36_EXACT",
+                  "expected_public_key_b64": expected_public_key,
+                  "derived_public_key_b64": expected_public_key,
+                  "public_key_fingerprint_sha256": expected_fingerprint,
+                  "public_key_match": True,
+                  "private_key_exported": False,
+                  "private_key_material_in_output": False,
+                  "repository_source_control_secret": False,
+                  "next_gate": "PKE_ELIGIBILITY_RECONCILIATION",
+              }
+              
+              missing = [k for k in required_values if k not in data]
+              if missing:
+                  raise ValueError(f"missing required custody fields: {missing}")
+
+              for key, expected in required_values.items():
+                  actual = data.get(key)
+
+                  if isinstance(expected, bool):
+                      if type(actual) is not bool or actual is not expected:
+                          raise ValueError(f"custody validation failed: {key}")
+                  elif type(actual) is not type(expected) or actual != expected:
+                      raise ValueError(f"custody validation failed: {key}")
+
+              if data.get("derived_public_key_b64") != data.get("expected_public_key_b64"):
+                  raise ValueError("derived public key does not equal expected public key")
+              allowed = {
+                  'artifact_type', 'version', 'result', 'command_id', 'key_strategy',
+                  'trust_root_binding', 'expected_public_key_b64', 'derived_public_key_b64',
+                  'public_key_fingerprint_sha256', 'public_key_match', 'private_key_exported',
+                  'private_key_material_in_output', 'repository_source_control_secret',
+                  'next_gate', 'observed_at'
+              }
+              public_result = {k: data[k] for k in sorted(allowed) if k in data}
+              print(json.dumps(public_result, indent=2, sort_keys=True))
+          except Exception:
+              print('CUSTODY_VERIFICATION=BLOCKED')
+              print('PUBLIC_EVIDENCE_EMITTED=NO')
+              raise SystemExit(1)
+          finally:
+              path.unlink(missing_ok=True)
+          PY
