@@ -1,7 +1,7 @@
 {
   "artifact_type": "PGCP_AA_GITHUB_FREE_OPTIONA_REPO_MANIFEST",
-  "version": "v0.3",
-  "status": "HARDENING_PATCH_APPLIED_ON_BRANCH_NOT_MERGED",
+  "version": "v0.4",
+  "status": "HARDENING_VALIDATION_PATCH_APPLIED_ON_BRANCH_NOT_MERGED",
   "inventory_scope": "All public tracked repository files except this manifest and SHA256SUMS; SHA256SUMS covers this manifest and every other file except itself.",
   "key_strategy": "OPTION_A_SAME_HISTORICAL_KEY",
   "custody_path": "PATH_B_NEW_AUTHORIZED_EXTERNAL_CUSTODY",
@@ -17,8 +17,8 @@
     },
     {
       "path": ".github/workflows/verify-production-custody.yml",
-      "sha256": "39f65c2cb6f969899dbec88b26a5463d0b8a766ae14db449f9ee93bdf7946bf2",
-      "size_bytes": 3123
+      "sha256": "2fa550eb9101eea9d67f443c704a39ed395d6616dcc9d4d41676b4654fa6a388",
+      "size_bytes": 4579
     },
     {
       "path": ".gitignore",
